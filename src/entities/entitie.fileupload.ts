@@ -15,7 +15,7 @@ class DatabaseSchema {
   @Column({ type: 'text', nullable: false })
   hash: string
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'longtext', nullable: true })
   url?: string
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

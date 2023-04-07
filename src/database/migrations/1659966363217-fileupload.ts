@@ -31,7 +31,7 @@ export class fileupload1659966363217 implements MigrationInterface {
           },
           {
             name: 'url',
-            type: 'text',
+            type: 'longtext',
             isNullable: true
           },
           {
