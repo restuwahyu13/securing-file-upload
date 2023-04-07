@@ -37,7 +37,7 @@ export class FileUploadService {
 
   async getFiles(): Promise<ApiResponse> {
     try {
-      const getFiles: FileUpload[] = await this.model.find()
+      const getFiles: FileUpload[] = await this.model.find({ select: ['name', , 'hash', 'created_at'] })
       return apiResponse({ stat_code: status.OK, stat_message: 'Filenames exist', data: getFiles })
     } catch (e: any) {
       if (e instanceof Error) apiResponse({ stat_code: status.FAILED_DEPENDENCY, err_message: e.message })
