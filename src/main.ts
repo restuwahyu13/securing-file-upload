@@ -5,7 +5,7 @@ import express, { Express, Request, Response } from 'express'
 import http, { OutgoingMessage, Server } from 'http'
 import status from 'http-status'
 import { Connection, createConnection, useContainer } from 'typeorm'
-import bodyParser from 'body-parser'
+import bodyparser from 'body-parser'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
@@ -15,7 +15,7 @@ import hpp from 'hpp'
 
 import { Container, Injectable, Context, Router } from '@helpers/helper.di'
 import { apiResponse } from '@helpers/helper.apiResponse'
-import { AppModule } from '@/app.module'
+import { AppModule } from '@app.module'
 
 @Injectable()
 class App {
@@ -59,9 +59,9 @@ class App {
   }
 
   private middleware(): void {
-    this.app.use(bodyParser.json({ limit: +process.env.BODY_SIZE_MAX, strict: true, inflate: true }))
-    this.app.use(bodyParser.raw({ limit: +process.env.BODY_SIZE_MAX, inflate: true }))
-    this.app.use(bodyParser.urlencoded({ limit: +process.env.BODY_SIZE_MAX, extended: true, inflate: true }))
+    this.app.use(bodyparser.json({ limit: +process.env.BODY_SIZE_MAX, strict: true, inflate: true }))
+    this.app.use(bodyparser.raw({ limit: +process.env.BODY_SIZE_MAX, inflate: true }))
+    this.app.use(bodyparser.urlencoded({ limit: +process.env.BODY_SIZE_MAX, extended: true, inflate: true }))
     this.app.use(hpp({ checkBody: true, checkQuery: true }))
     this.app.use(
       cors({

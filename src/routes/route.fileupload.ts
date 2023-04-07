@@ -14,7 +14,7 @@ export class FileUploadRoute {
   }
 
   main(): Router {
-    this.router.post('/', upload(fileupload), this.controller.createFileUpload())
+    this.router.post('/', upload(fileupload, 'name'), this.controller.createFileUpload())
     this.router.get('/', this.controller.getFiles())
     this.router.get('/:filename', validator(DTOFileUploadId), this.controller.getFileById())
 
