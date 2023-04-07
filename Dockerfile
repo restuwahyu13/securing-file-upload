@@ -20,5 +20,5 @@ RUN rm -rf node_modules \
   && npm config set fetch-timeout 30000000 \
   && npm i --loglevel verbose --no-audit --legacy-peer-deps \
   && npm run build
-EXPOSE 3030
+EXPOSE 3000
 CMD npm run start
