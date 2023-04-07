@@ -1,0 +1,89 @@
+{
+  "name": "securing-file-upload",
+  "version": "0.0.1",
+  "description": "Securing file upload reference information by owaps",
+  "main": "./dist/main.js",
+  "scripts": {
+    "ts-bin": "ts-node -r tsconfig-paths/register",
+    "ts-bin:dev": "cross-env NODE_ENV=development nodemon src/main.ts",
+    "ts-bin:prod": "tsc -P tsconfig.json && tsc-alias",
+    "typeorm:seeding": "npm run ts-bin ./node_modules/typeorm-seeding/dist/cli.js",
+    "typeorm:cli": "npm run ts-bin ./node_modules/typeorm/cli.js",
+    "cleanup": "rimraf dist",
+    "start": "npm run mig:latest && node dist/main.js",
+    "build": "npm run cleanup && npm run ts-bin:prod",
+    "dev": "npm run ts-bin:dev",
+    "seed:config": "npm run typeorm:seeding config",
+    "seed:run": "npm run ts-bin ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "seed:runrollmig": "npm run mig:rollback && npm run mig:latest && npm run seed:run",
+    "seed:runmig": "npm run mig:latest && npm run seed:run",
+    "mig:rollback": "npm run typeorm:cli schema:drop",
+    "mig:latest": "npm run typeorm:cli migration:run",
+    "mig:list": "npm run typeorm:cli migration:show",
+    "mig:make": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create --name"
+  },
+  "author": {
+    "name": "Restu Wahyu Saputra",
+    "email": "restuwahyu13@gmail.com",
+    "url": "https://github.com/restuwahyu13"
+  },
+  "maintainers": [
+    "Restu Wahyu Saputra"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/restuwahyu13/securing-file-upload"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.x.x",
+    "npm": ">= 6.x.x"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "filesize": "^10.0.7",
+    "helmet": "^6.0.1",
+    "hpp": "^0.2.3",
+    "http-status": "^1.6.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4-lts.1",
+    "mysql2": "^2.3.3",
+    "short-uuid": "^4.2.2",
+    "tsyringe": "^4.7.0",
+    "typedi": "^0.10.0",
+    "typeorm": "^0.2.24",
+    "typeorm-typedi-extensions": "^0.4.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/filesize": "^5.0.0",
+    "@types/helmet": "^4.0.0",
+    "@types/hpp": "^0.2.2",
+    "@types/morgan": "^1.9.4",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.15.11",
+    "@types/prettier": "^2.7.2",
+    "@types/rimraf": "^4.0.5",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.7",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^4.4.1",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.5",
+    "tsconfig-paths": "^4.2.0",
+    "tslib": "^2.5.0",
+    "typeorm-seeding": "^1.6.1    ",
+    "typescript": "^5.0.3"
+  }
+}
