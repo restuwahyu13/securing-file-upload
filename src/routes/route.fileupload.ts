@@ -2,6 +2,8 @@ import { Inject, Route, Router } from '@helpers/helper.di'
 import { FileUploadController } from '@controllers/controller.fileupload'
 import { fileupload } from '@libs/lib.multer'
 import { upload } from '@middlewares/middleware.upload'
+import { validator } from '@middlewares/middleware.validator'
+import { DTOFileUploadId } from '@dtos/dto.fileupload'
 
 @Route()
 export class FileUploadRoute {
@@ -13,6 +15,8 @@ export class FileUploadRoute {
 
   main(): Router {
     this.router.post('/', upload(fileupload), this.controller.createFileUpload())
+    this.router.get('/', this.controller.getFiles())
+    this.router.get('/:filename', validator(DTOFileUploadId), this.controller.getFileById())
 
     return this.router
   }
