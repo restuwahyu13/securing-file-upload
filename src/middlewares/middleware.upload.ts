@@ -19,6 +19,7 @@ export const upload = (multer: Multer, field: string): Handler => {
           throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: err.message })
         } else {
           if (req.headers['content-type'] && !req.headers['content-type'].includes('multipart/form-data')) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'Content type not valid' })
+          if (!req.file) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'File is required' })
           else if (req.file && !MimeType.whiteListBytes(req.file.buffer, req.file.originalname)) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'Mime type not valid' })
           else if (req.file && req.file.size >= +process.env.FILE_SIZE_MAX) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'File to many large' })
 
