@@ -18,8 +18,8 @@ export const upload = (multer: Multer): Handler => {
         } else {
           if (!MimeType.whiteListBytes(req.file.buffer, req.file.originalname)) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'Mime type not valid' })
           const dir: string = path.resolve(process.cwd(), 'images')
-          const pattern: RegExp = new RegExp(`[^(${process.env.FILE_WHITELIST})]`, 'gi')
-          const filename: string = req.file.originalname.replace(pattern, short().generate() + '.')
+          const pattern: RegExp = new RegExp(`[^(${process.env.FILE_WHITELIST})].*`, 'gi')
+          const filename: string = req.file.originalname.replace(pattern, short().generate()) + path.extname(req.file.originalname)
           const fws: fs.WriteStream = fs.createWriteStream(`${dir}/${filename}`)
 
           req.file.filename = filename
