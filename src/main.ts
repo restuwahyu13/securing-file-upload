@@ -52,6 +52,9 @@ class App {
 
   private config(): void {
     this.app.disable('x-powered-by')
+    this.server.maxHeadersCount = +process.env.BODY_SIZE_MAX
+    this.server.headersTimeout = 300
+    this.server.keepAliveTimeout = 300
     Container.resolve<AppModule>(AppModule)
   }
 
