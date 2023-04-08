@@ -2,16 +2,15 @@ import path from 'path'
 
 export class MimeType {
   static whiteList(filename: string): boolean {
-    return new RegExp(`(${process.env.FILE_WHITELIST})`, 'gi').test(path.extname(filename).replace('.', ''))
+    return new RegExp(`\\b(${process.env.FILE_WHITELIST})\\b`, 'gi').test(filename)
   }
 
   static blackList(filename: string): boolean {
-    return new RegExp(`(${process.env.FILE_BLACKLIST})`, 'gi').test(path.extname(filename).replace('.', ''))
+    return new RegExp(`(${process.env.FILE_BLACKLIST})`, 'gi').test(filename)
   }
 
   static whiteListBytes(content: Buffer, filename: string): boolean {
-    const extFile: string = path.extname(filename).replace('.', '')
-    switch (extFile) {
+    switch (path.extname(filename).replace('.', '')) {
       case 'jpg':
       case 'jpeg':
         const validJpgBytes: string[] = ['255', '216', '255', '224', '0', '16', '74', '70', '73', '70', '0', '1']

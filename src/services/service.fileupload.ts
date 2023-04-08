@@ -7,7 +7,7 @@ import { Inject, Service, Repository } from '@helpers/helper.di'
 import { apiResponse, ApiResponse } from '@helpers/helper.apiResponse'
 import { FileUpload } from '@entities/entitie.fileupload'
 import { symmetricHash } from '@helpers/helper.hash'
-import { DTOFileUploadId } from '@dtos/dto.fileupload'
+import { DTOFileUploadById } from '@dtos/dto.fileupload'
 
 @Service()
 export class FileUploadService {
@@ -45,9 +45,9 @@ export class FileUploadService {
     }
   }
 
-  async getFileById(params: DTOFileUploadId): Promise<ApiResponse> {
+  async getFileById(params: DTOFileUploadById): Promise<ApiResponse> {
     try {
-      const checkFile: FileUpload = await this.model.findOne({ select: ['name', 'hash', 'url', 'created_at'], where: { name: `${params.filename}.webp` } })
+      const checkFile: FileUpload = await this.model.findOne({ select: ['name', 'hash', 'url', 'created_at'], where: { id: params.id } })
       if (!checkFile) throw apiResponse({ stat_code: status.NOT_FOUND, err_message: 'Filename not exist' })
 
       return apiResponse({ stat_code: status.OK, stat_message: 'Filename exist', data: checkFile })

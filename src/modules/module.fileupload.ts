@@ -3,6 +3,8 @@ import { FileUploadService } from '@services/service.fileupload'
 import { FileUploadController } from '@controllers/controller.fileupload'
 import { FileUploadRoute } from '@routes/route.fileupload'
 import { FileUploadModel } from '@models/model.fileupload'
+import { FileUploadMiddleware } from '@middlewares/middleware.upload'
+import { ValidatorMiddleware } from '@middlewares/middleware.validator'
 
 @Module([
   { token: 'FileUploadService', useClass: FileUploadService },
@@ -13,6 +15,14 @@ import { FileUploadModel } from '@models/model.fileupload'
     useFactory: (): ObjectLiteral => {
       return Context.get(FileUploadModel).model
     }
+  },
+  {
+    token: 'ValidatorMiddleware',
+    useClass: ValidatorMiddleware
+  },
+  {
+    token: 'FileUploadMiddleware',
+    useClass: FileUploadMiddleware
   }
 ])
 @Injectable()
