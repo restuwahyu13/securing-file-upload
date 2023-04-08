@@ -25,8 +25,7 @@ export class FileUploadMiddleware {
             if (req.headers['content-type'] && !req.headers['content-type'].includes('multipart/form-data')) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'Content type not valid' })
             if (!req.file) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'File is required' })
             else if (req.file.size >= +process.env.FILE_SIZE_MAX) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'File to many large' })
-            else if (!MimeType.whiteList(req.file.originalname) || !MimeType.whiteListBytes(req.file.buffer, req.file.originalname) || MimeType.blackList(req.file.originalname))
-              throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'Mime type not valid' })
+            else if (!MimeType.whiteList(req.file.originalname) || !MimeType.whiteListBytes(req.file.buffer, req.file.originalname) || MimeType.blackList(req.file.originalname)) throw apiResponse({ stat_code: status.BAD_REQUEST, err_message: 'Mime type not valid' })
 
             const pattern: RegExp = new RegExp(`[^(${process.env.FILE_WHITELIST})].*`, 'gi')
             const dirname: string = path.resolve(process.cwd(), 'images')
